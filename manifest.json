@@ -1,0 +1,11 @@
+{
+	"id": "speed_reading",
+	"name": "Speed Reading",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Speed Reading",
+	"author": "Miha Kralj",
+	"authorUrl": "https://obsidian.md",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
