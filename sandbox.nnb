@@ -1,0 +1,51 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "1   n           010\r\n2   nn          020\r\n3   bnn         120\r\n4   bbnn        220\r\n5   bbnnt       221\r\n6   bbnntt      222\r\n7   bbnnntt     232\r\n8   bbbnnntt    332\r\n9   bbbnnnttt   333\r\n10  bbbnnnnttt  343\r\n11  bbbnnnnnttt 353"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "k=1; b=0 n=1 l=0\r\nk=2; b=0 n=2 l=0\r\nk=3; b=1 n=2 l=0\r\nk=4; b=1 n=2 l=1\r\nk=5; b=2 n=2 l=1\r\nk=6; b=2 n=2 l=2\r\nk=7; b=2 n=3 l=2\r\nk=8; b=3 n=3 l=2\r\nk=9; b=3 n=3 l=3\r\nk=10; b=3 n=4 l=3\r\nk=11; b=3 n=5 l=3\r\nk=12; b=3 n=6 l=3\r\nk=13; b=3 n=7 l=3\r\nk=14; b=3 n=8 l=3\r\nk=15; b=3 n=9 l=3"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "let m=4\r\nfor (let k: number = 1; k <= 15; k++) {\r\n    let b: number = Math.min(Math.floor((k) / 3),m);\r\n    let l: number = Math.min(Math.floor((k - 1) / 3),m);\r\n    let n: number = k - (b + l);\r\n    console.log(`k=${k}; b=${b} n=${n} l=${l}`);\r\n}\r\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "k=1; b=0 n=1 l=0",
+                                "k=2; b=0 n=2 l=0",
+                                "k=3; b=1 n=2 l=0",
+                                "k=4; b=1 n=2 l=1",
+                                "k=5; b=1 n=3 l=1",
+                                "k=6; b=2 n=3 l=1",
+                                "k=7; b=2 n=3 l=2",
+                                "k=8; b=2 n=4 l=2",
+                                "k=9; b=3 n=4 l=2",
+                                "k=10; b=3 n=4 l=3",
+                                "k=11; b=3 n=5 l=3",
+                                "k=12; b=4 n=5 l=3",
+                                "k=13; b=4 n=5 l=4",
+                                "k=14; b=4 n=6 l=4",
+                                "k=15; b=4 n=7 l=4",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
