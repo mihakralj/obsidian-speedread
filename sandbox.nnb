@@ -17,7 +17,7 @@
         {
             "language": "typescript",
             "source": [
-                "let m=4\r\nfor (let k: number = 1; k <= 15; k++) {\r\n    let b: number = Math.min(Math.floor((k) / 3),m);\r\n    let l: number = Math.min(Math.floor((k - 1) / 3),m);\r\n    let n: number = k - (b + l);\r\n    console.log(`k=${k}; b=${b} n=${n} l=${l}`);\r\n}\r\n"
+                "let m=3\r\nfor (let k: number = 1; k <= 15; k++) {\r\n    let b: number = Math.min(Math.floor((k) / 3),m);\r\n    let l: number = Math.min(Math.floor((k - 1) / 3),m);\r\n    let n: number = k - (b + l);\r\n    console.log(`k=${k}; b=${b} n=${n} l=${l}`);\r\n}\r\n"
             ],
             "outputs": [
                 {
