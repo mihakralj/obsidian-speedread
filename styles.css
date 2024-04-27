@@ -6,3 +6,12 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+.h {
+    font-weight: 700;
+}
+.n {
+    font-weight: 400;
+}
+.l {
+    font-weight: 100;
+}

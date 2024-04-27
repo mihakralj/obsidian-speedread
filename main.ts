@@ -1,36 +1,52 @@
-import { Plugin, Notice, MarkdownView } from 'obsidian';
-import { EditorView } from '@codemirror/view';
+import { Plugin } from 'obsidian';
+import { EditorView, Decoration, ViewPlugin, DecorationSet, ViewUpdate } from '@codemirror/view';
 
-export default class MyPlugin extends Plugin {
-    async onload() {
-        this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
-            this.reformatBody();
-        });
-    }
-
-    private reformatBody() {
-
-		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-		const editorView = (view!.editor as any).cm as EditorView;
-
-    	const visibleRanges = editorView.viewportLineBlocks;
-
-		if (visibleRanges.length > 0) {
-			const firstBlock = visibleRanges[0];
-			const lastBlock = visibleRanges[visibleRanges.length - 1];
-
-			// Correctly interpreting 'from' and 'to' as character positions, not line numbers
-			const firstVisiblePos = firstBlock.from;
-			const lastVisiblePos = lastBlock.to;
-
-			// Extracting the text for the visible range using 'sliceString'
-			const visibleText = editorView.state.doc.sliceString(firstVisiblePos, lastVisiblePos);
-
-			console.log(`Visible text: ${visibleText}`);
-		} else {
-			console.log("No visible lines.");
-		}
-
-        //new Notice('This is a notice!');
+class BoldFirstLetterPlugin extends Plugin {
+    onload() {
+        this.registerEditorExtension(boldFirstLetterExtension());
     }
 }
+
+function boldFirstLetterExtension() {
+    return ViewPlugin.define(view => new BoldFirstLetterView(view), {
+        decorations: v => v.decorations
+    });
+}
+
+class BoldFirstLetterView {
+    decorations: DecorationSet;
+
+    constructor(view: EditorView) {
+        this.decorations = this.computeDecorations(view);
+    }
+
+    update(update: ViewUpdate) {
+        if (update.docChanged || update.viewportChanged) {
+            this.decorations = this.computeDecorations(update.view);
+        }
+    }
+
+    computeDecorations(view: EditorView): DecorationSet {
+        let decos = Decoration.none;
+        const regExp = /\b\w/g; // Regular expression to find the first letter of each word.
+
+      // Correctly iterating through the document
+      for (let pos = 0; pos < view.state.doc.length; pos++) {
+        let lineStart = view.state.doc.lineAt(pos).from;
+        let lineEnd = view.state.doc.lineAt(pos).to;
+        let text = view.state.doc.sliceString(lineStart, lineEnd);
+
+        let match;
+        while ((match = regExp.exec(text)) !== null) {
+            const start = lineStart + match.index;
+            const end = start + match[0].length;
+            const decoration = Decoration.mark({ class: "h" }).range(start, end);
+            decos = decos.update({ add: [decoration] });
+        }
+    }
+
+        return decos;
+    }
+}
+
+module.exports = BoldFirstLetterPlugin;

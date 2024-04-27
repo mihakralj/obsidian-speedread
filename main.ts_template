@@ -1,0 +1,36 @@
+import { Plugin, Notice, MarkdownView } from 'obsidian';
+import { EditorView, Decoration, ViewUpdate, ViewPlugin } from '@codemirror/view';
+import { RangeSetBuilder } from '@codemirror/rangeset';
+export default class MyPlugin extends Plugin {
+	async onload() {
+		this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
+			this.reformatBody();
+		});
+	}
+
+
+	private reformatBody() {
+
+		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+		const editorView = (view!.editor as any).cm as EditorView;
+		const visibleRanges = editorView.viewportLineBlocks;
+
+		console.clear();
+		if (visibleRanges.length > 0) {
+			const firstBlock = visibleRanges[0];
+			const lastBlock = visibleRanges[visibleRanges.length - 1];
+			const firstVisiblePos = firstBlock.from;
+			const lastVisiblePos = lastBlock.to;
+			const visibleText = editorView.state.doc.sliceString(firstVisiblePos, lastVisiblePos);
+
+
+			//here we create a decorator
+			console.log(`${visibleText}`);
+
+		} else {
+			console.log("No visible lines.");
+		}
+
+		//new Notice('This is a notice!');
+	}
+}
